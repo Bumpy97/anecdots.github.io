@@ -4257,6 +4257,42 @@ class IButtonInstance extends self.IDOMInstance{constructor(){super();map.set(th
 }
 
 {
+'use strict';{const C3=self.C3;const DOM_COMPONENT_ID="iframe";C3.Plugins.iframe=class IframePlugin extends C3.SDKDOMPluginBase{constructor(opts){super(opts,DOM_COMPONENT_ID)}Release(){super.Release()}}}{const C3=self.C3;C3.Plugins.iframe.Type=class IframeType extends C3.SDKTypeBase{constructor(objectClass){super(objectClass)}Release(){super.Release()}OnCreate(){}}}
+{const C3=self.C3;const C3X=self.C3X;const DOM_COMPONENT_ID="iframe";C3.Plugins.iframe.Instance=class IframeInstance extends C3.SDKDOMInstanceBase{constructor(inst,properties){super(inst,DOM_COMPONENT_ID);this._url="";let initialHtmlStr="";this._id="";this._allowAttrib="";this._enableSandbox=false;this._sandboxAttrib="";if(properties){this._url=properties[0];initialHtmlStr=properties[1];this.GetWorldInfo().SetVisible(properties[2]);this._id=properties[3];this._allowAttrib=properties[4];this._enableSandbox=
+properties[5];this._sandboxAttrib=properties[6]}this.CreateElement({"url":"","html":initialHtmlStr,"id":this._id,"allow":this._allowAttrib,"enableSandbox":this._enableSandbox,"sandbox":this._sandboxAttrib});if(this._url)this._runtime.AddCreatePromise((async()=>{const urlToLoad=await this.GetUrl();await this.PostToDOMElementAsync("navigate-url",{"url":urlToLoad})})())}Release(){super.Release()}GetElementState(){return{}}async GetUrl(url){return await this._runtime.GetAssetManager().GetProjectFileIframeUrl(url||
+this._url)}Draw(renderer){}SaveToJson(){return{"url":this._url,"id":this._id}}LoadFromJson(o){this._url=o["url"];this._id=o["id"];this.UpdateElementState()}GetDebuggerProperties(){const Acts=C3.Plugins.iframe.Acts;const prefix="plugins.iframe";return[{title:prefix+".name",properties:[{name:prefix+".properties.url.name",value:this._url,onedit:v=>this.CallAction(Acts.NavigateURL,v)}]}]}GetScriptInterfaceClass(){return self.IIframeInstance}};const map=new WeakMap;self.IIframeInstance=class IIframeInstance extends self.IDOMInstance{constructor(){super();
+map.set(this,self.IInstance._GetInitInst().GetSdkInstance())}}}{const C3=self.C3;C3.Plugins.iframe.Cnds={}}{const C3=self.C3;C3.Plugins.iframe.Acts={async NavigateURL(url){const urlToLoad=await this.GetUrl(url);this.PostToDOMElement("navigate-url",{"url":urlToLoad})},DisplayHTMLString(html){this.PostToDOMElement("display-html",{"html":html})}}}{const C3=self.C3;C3.Plugins.iframe.Exps={}};
+
+}
+
+{
+'use strict';{const C3=self.C3;C3.Plugins.Browser=class BrowserPlugin extends C3.SDKPluginBase{constructor(opts){super(opts)}Release(){super.Release()}}}{const C3=self.C3;C3.Plugins.Browser.Type=class BrowserType extends C3.SDKTypeBase{constructor(objectClass){super(objectClass)}Release(){super.Release()}OnCreate(){}}}
+{const C3=self.C3;const DOM_COMPONENT_ID="browser";C3.Plugins.Browser.Instance=class BrowserInstance extends C3.SDKInstanceBase{constructor(inst,properties){super(inst,DOM_COMPONENT_ID);this._initLocationStr="";this._isOnline=false;this._referrer="";this._docTitle="";this._isCookieEnabled=false;this._screenWidth=0;this._screenHeight=0;this._windowOuterWidth=0;this._windowOuterHeight=0;this._isConstructArcade=false;this._cssStyleMap=new Map;this._isInstallAvailable=false;this._installResult="";this.AddDOMMessageHandlers([["online-state",
+e=>this._OnOnlineStateChanged(e)],["backbutton",()=>this._OnBackButton()],["sw-message",e=>this._OnSWMessage(e)],["hashchange",e=>this._OnHashChange(e)],["install-available",()=>this._OnInstallAvailable()],["app-installed",e=>this._OnAppInstalled(e)]]);const rt=this.GetRuntime().Dispatcher();this._disposables=new C3.CompositeDisposable(C3.Disposable.From(rt,"afterfirstlayoutstart",()=>this._OnAfterFirstLayoutStart()),C3.Disposable.From(rt,"window-resize",()=>this._OnWindowResize()),C3.Disposable.From(rt,
+"suspend",()=>this._OnSuspend()),C3.Disposable.From(rt,"resume",()=>this._OnResume()));this._runtime.AddLoadPromise(this.PostToDOMAsync("get-initial-state",{"exportType":this._runtime.GetExportType()}).then(data=>{this._initLocationStr=data["location"];this._isOnline=data["isOnline"];this._referrer=data["referrer"];this._docTitle=data["title"];this._isCookieEnabled=data["isCookieEnabled"];this._screenWidth=data["screenWidth"];this._screenHeight=data["screenHeight"];this._windowOuterWidth=data["windowOuterWidth"];
+this._windowOuterHeight=data["windowOuterHeight"];this._isConstructArcade=data["isConstructArcade"]}))}Release(){super.Release()}_OnAfterFirstLayoutStart(){this.PostToDOM("ready-for-sw-messages")}async _OnOnlineStateChanged(e){const isOnline=!!e["isOnline"];if(this._isOnline===isOnline)return;this._isOnline=isOnline;if(this._isOnline)await this.TriggerAsync(C3.Plugins.Browser.Cnds.OnOnline);else await this.TriggerAsync(C3.Plugins.Browser.Cnds.OnOffline)}async _OnWindowResize(){await this.TriggerAsync(C3.Plugins.Browser.Cnds.OnResize)}_OnSuspend(){this.Trigger(C3.Plugins.Browser.Cnds.OnPageHidden)}_OnResume(){this.Trigger(C3.Plugins.Browser.Cnds.OnPageVisible)}async _OnBackButton(){await this.TriggerAsync(C3.Plugins.Browser.Cnds.OnBackButton)}_OnSWMessage(e){const messageType=
+e["type"];if(messageType==="downloading-update")this.Trigger(C3.Plugins.Browser.Cnds.OnUpdateFound);else if(messageType==="update-ready"||messageType==="update-pending")this.Trigger(C3.Plugins.Browser.Cnds.OnUpdateReady);else if(messageType==="offline-ready")this.Trigger(C3.Plugins.Browser.Cnds.OnOfflineReady)}_OnHashChange(e){this._initLocationStr=e["location"];this.Trigger(C3.Plugins.Browser.Cnds.OnHashChange)}_OnInstallAvailable(){this._isInstallAvailable=true;this.Trigger(C3.Plugins.Browser.Cnds.OnInstallAvailable)}_OnAppInstalled(e){this._isInstallAvailable=
+false;this.Trigger(C3.Plugins.Browser.Cnds.OnAppInstalled)}GetDebuggerProperties(){const prefix="plugins.browser.debugger";return[{title:"plugins.browser.name",properties:[{name:prefix+".user-agent",value:navigator.userAgent},{name:prefix+".is-online",value:this._isOnline},{name:prefix+".is-fullscreen",value:this._runtime.GetCanvasManager().IsDocumentFullscreen()}]}]}}}
+{const C3=self.C3;C3.Plugins.Browser.Cnds={IsOnline(){return this._isOnline},OnOnline(){return true},OnOffline(){return true},OnResize(){return true},CookiesEnabled(){return this._isCookieEnabled},IsFullscreen(){return this._runtime.GetCanvasManager().IsDocumentFullscreen()},OnBackButton(){return true},IsPortraitLandscape(p){const lastInnerWidth=this._runtime.GetCanvasManager().GetLastWidth();const lastInnerHeight=this._runtime.GetCanvasManager().GetLastHeight();const current=lastInnerWidth<=lastInnerHeight?
+0:1;return current===p},OnUpdateFound(){return true},OnUpdateReady(){return true},OnOfflineReady(){return true},OnHashChange(){return true},OnInstallAvailable(){return true},IsInstallAvailable(){return this._isInstallAvailable},OnInstallResult(result){switch(result){case 0:return this._installResult==="accepted";case 1:return this._installResult==="dismissed";case 2:return this._installResult==="error";case 3:return true;default:return false}},OnAppInstalled(){return true},CompareDisplayMode(mode){const cssDisplayMode=
+this._runtime.GetCanvasManager().GetCssDisplayMode();switch(mode){case 0:return cssDisplayMode==="browser";case 1:return cssDisplayMode==="minimal-ui";case 2:return cssDisplayMode==="standalone";case 3:return cssDisplayMode==="fullscreen";default:return false}},PageVisible(){return!this._runtime.IsSuspended()},OnPageHidden(){return true},OnPageVisible(){return true},HasJava(){return false},IsDownloadingUpdate(){return false},OnMenuButton(){return false},OnSearchButton(){return false},IsMetered(){return false},
+IsCharging(){return true},SupportsFullscreen(){return true}}}
+{const C3=self.C3;const ORIENTATIONS=["portrait","landscape","portrait-primary","portrait-secondary","landscape-primary","landscape-secondary"];C3.Plugins.Browser.Acts={Alert(message){this.PostToDOM("alert",{"message":message.toString()})},Close(){if(this._isConstructArcade)return;if(this._runtime.IsDebug())self.C3Debugger.CloseWindow();else this.PostToDOM("close")},Focus(){this.PostToDOM("set-focus",{"isFocus":true})},Blur(){this.PostToDOM("set-focus",{"isFocus":false})},GoBack(){if(this._isConstructArcade)return;
+this.PostToDOM("navigate",{"type":"back"})},GoForward(){if(this._isConstructArcade)return;this.PostToDOM("navigate",{"type":"forward"})},GoHome(){},Reload(){if(this._isConstructArcade)return;if(this._runtime.IsDebug())this._runtime.PostToDebugger({"type":"reload"});else this.PostToDOM("navigate",{"type":"reload"})},GoToURL(url,target){this._PostToDOMMaybeSync("navigate",{"type":"url","url":url,"target":target,"exportType":this._runtime.GetExportType()})},GoToURLWindow(url,tag){this._PostToDOMMaybeSync("navigate",
+{"type":"new-window","url":url,"tag":tag,"exportType":this._runtime.GetExportType()})},RequestFullScreen(mode,navUi){if(mode>=2)mode+=1;if(mode===6)mode=2;if(mode===1)mode=0;const modeStr=C3.CanvasManager._FullscreenModeNumberToString(mode);this._runtime.GetCanvasManager().SetDocumentFullscreenMode(modeStr);this._PostToDOMMaybeSync("request-fullscreen",{"navUI":navUi})},CancelFullScreen(){this._PostToDOMMaybeSync("exit-fullscreen")},Vibrate(pattern){const arr=pattern.split(",");for(let i=0,len=arr.length;i<
+len;++i)arr[i]=parseInt(arr[i],10);this._PostToDOMMaybeSync("vibrate",{"pattern":arr})},async InvokeDownload(url,filename){if(!url||!filename)return;const urlToDownload=await this._runtime.GetAssetManager().GetProjectFileUrl(url);this._runtime.InvokeDownload(urlToDownload,filename)},InvokeDownloadString(str,mimeType,filename){if(!filename)return;const dataUri=`data:${mimeType},${encodeURIComponent(str)}`;this._runtime.InvokeDownload(dataUri,filename)},ConsoleLog(type,msg){msg=msg.toString();if(type===
+0)console.log(msg);else if(type===1)console.warn(msg);else if(type===2)console.error(msg)},ConsoleGroup(name){console.group(name)},ConsoleGroupEnd(){console.groupEnd()},ExecJs(jsStr){try{eval(jsStr)}catch(err){console.error("Error executing JavaScript: ",err)}},LockOrientation(o){o=Math.floor(o);if(o<0||o>=ORIENTATIONS.length)return;const orientation=ORIENTATIONS[o];this._PostToDOMMaybeSync("lock-orientation",{"orientation":orientation})},UnlockOrientation(){this._PostToDOMMaybeSync("unlock-orientation")},
+LoadStyleSheet(url){this._runtime.GetAssetManager().LoadStyleSheet(url)},async SetDocumentCSSStyle(propName,value,selector,type){await this.PostToDOMAsync("set-document-css-style",{"prop":C3.CSSToCamelCase(propName),"value":value,"selector":selector,"is-all":type!==0})},async GetDocumentCSSStyle(propName,selector,tag){const ret=await this.PostToDOMAsync("get-document-css-style",{"prop":propName,"selector":selector});if(ret["isOk"])this._cssStyleMap.set(tag.toLowerCase(),ret["result"].trim())},SetHash(h){this.PostToDOM("set-hash",
+{"hash":h})},SetWindowSize(w,h){this.PostToDOM("set-window-size",{"windowWidth":w,"windowHeight":h})},SetWindowPosition(x,y){this.PostToDOM("set-window-position",{"windowX":x,"windowY":y})},async RequestInstall(){const result=await this.PostToDOMAsync("request-install");this._installResult=result["result"];this.Trigger(C3.Plugins.Browser.Cnds.OnInstallResult)}}}
+{const C3=self.C3;C3.Plugins.Browser.Exps={URL(){if(this._runtime.IsInWorker())return this._initLocationStr;else return location.toString()},Protocol(){if(this._runtime.IsInWorker())return(new URL(this._initLocationStr)).protocol;else return location.protocol},Domain(){if(this._runtime.IsInWorker())return(new URL(this._initLocationStr)).hostname;else return location.hostname},Port(){if(this._runtime.IsInWorker())return(new URL(this._initLocationStr)).port;else return location.port},PathName(){if(this._runtime.IsInWorker())return(new URL(this._initLocationStr)).pathname;
+else return location.pathname},Hash(){if(this._runtime.IsInWorker())return(new URL(this._initLocationStr)).hash;else return location.hash},QueryString(){if(this._runtime.IsInWorker())return(new URL(this._initLocationStr)).search;else return location.search},QueryParam(param){const search=this._runtime.IsInWorker()?(new URL(this._initLocationStr)).search:location.search;const match=RegExp("[?&]"+param+"=([^&]*)").exec(search);if(match)return decodeURIComponent(match[1].replace(/\+/g," "));else return""},
+Referrer(){return this._referrer},Title(){return this._docTitle},Language(){return navigator.language},Platform(){return navigator.platform},UserAgent(){return navigator.userAgent},ExecJS(jsStr){let result=0;try{result=eval(jsStr)}catch(err){console.error("Error executing JavaScript: ",err)}if(typeof result==="number"||typeof result==="string")return result;if(typeof result==="boolean")return result?1:0;else return 0},CSSStyleValue(tag){return this._cssStyleMap.get(tag)||""},Name(){return navigator.appName},
+Version(){return navigator.appVersion},Product(){return navigator.product},Vendor(){return navigator.vendor},BatteryLevel(){return 1},BatteryTimeLeft(){return Infinity},Bandwidth(){const connection=navigator["connection"];if(connection)return connection["downlink"]||connection["downlinkMax"]||connection["bandwidth"]||Infinity;else return Infinity},ConnectionType(){const connection=navigator["connection"];if(connection)return connection["type"]||"unknown";else return"unknown"},DevicePixelRatio(){return self.devicePixelRatio},
+ScreenWidth(){return this._screenWidth},ScreenHeight(){return this._screenHeight},WindowInnerWidth(){return this._runtime.GetCanvasManager().GetLastWidth()},WindowInnerHeight(){return this._runtime.GetCanvasManager().GetLastHeight()},WindowOuterWidth(){return this._windowOuterWidth},WindowOuterHeight(){return this._windowOuterWidth},DisplayMode(){return this._runtime.GetCanvasManager().GetCssDisplayMode()},InstallResult(){return this._installResult}}};
+
+}
+
+{
 'use strict';{const C3=self.C3;C3.Behaviors.Tween=class TweenBehavior extends C3.SDKBehaviorBase{constructor(opts){super(opts)}Release(){super.Release()}}}{const C3=self.C3;C3.Behaviors.Tween.Type=class TweenType extends C3.SDKBehaviorTypeBase{constructor(behaviorType){super(behaviorType)}Release(){super.Release()}OnCreate(){}}}
 {const C3=self.C3;const NAMESPACE=C3.Behaviors.Tween;const ENABLED=0;NAMESPACE.Instance=class TweenInstance extends C3.SDKBehaviorInstanceBase{constructor(behInst,properties){super(behInst);this._allowMultiple=false;this._enabled=true;if(properties){this._allowMultiple=false;this._enabled=!!properties[ENABLED]}this._activeTweens=new Map;this._disabledTweens=[];this._waitingForReleaseTweens=new Map;this._finishingTween=null;this._activeTweensJson=null;this._disabledTweensJson=null;this._waitingForReleaseTweensJson=
 null;this._finishingTweenName="";this._triggerTweens=[];this._afterLoad=e=>this._OnAfterLoad();this.GetRuntime().Dispatcher().addEventListener("afterload",this._afterLoad)}Release(){this.GetRuntime().Dispatcher().removeEventListener("afterload",this._afterLoad);this._afterLoad=null;if(this._finishingTween){this.ReleaseAndCompleteTween(this._finishingTween);this._finishingTween=null}this.ReleaseAndCompleteTweens();this._tweens=null;this.ClearDisabledList();this._disabledTweens=null;this._ReleaseWaitingTweens();
@@ -4387,6 +4423,8 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Touch,
 		C3.Behaviors.Sin,
 		C3.Plugins.Button,
+		C3.Plugins.iframe,
+		C3.Plugins.Browser,
 		C3.Plugins.System.Cnds.OnLayoutStart,
 		C3.ScriptsInEvents.списоксобытий1_Event1_Act1,
 		C3.Plugins.Arr.Acts.SetXY,
@@ -4402,7 +4440,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.SetBoolVar,
 		C3.Plugins.System.Acts.Wait,
 		C3.ScriptsInEvents.списоксобытий1_Event10_Act1,
-		C3.ScriptsInEvents.списоксобытий1_Event11_Act1
+		C3.Plugins.Browser.Acts.ExecJs
 	];
 };
 self.C3_JsPropNameTable = [
@@ -4424,6 +4462,8 @@ self.C3_JsPropNameTable = [
 	{Спрайт3: 0},
 	{Спрайт4: 0},
 	{Спрайт5: 0},
+	{iframe: 0},
+	{Браузер: 0},
 	{level: 0},
 	{stop_like: 0}
 ];
@@ -4444,7 +4484,9 @@ self.InstanceType = {
 	Кнопка: class extends self.IButtonInstance {},
 	Спрайт3: class extends self.ISpriteInstance {},
 	Спрайт4: class extends self.ISpriteInstance {},
-	Спрайт5: class extends self.ISpriteInstance {}
+	Спрайт5: class extends self.ISpriteInstance {},
+	iframe: class extends self.IIframeInstance {},
+	Браузер: class extends self.IInstance {}
 }
 }
 
@@ -5054,7 +5096,9 @@ self.C3_ExpressionFuncs = [
 		() => 1.3,
 		() => 0.1,
 		() => 251,
-		() => 1.5
+		() => 1.5,
+		() => "    function share() {\n      vkBridge.send('VKWebAppShare', {\n  link: 'https://vk.com/app51921521'\n  })\n  .then((data) => { \n    if (data.result) {\n      // Запись размещена, история опубликована, сообщение отправлено\n    }\n  })\n  .catch((error) => {\n    // Ошибка\n    console.log(error);\n  });\n    }\n\t",
+		() => "function inviteFriend() {\n      vkBridge.send('VKWebAppShowInviteBox', {\n  })\n  .then( (data) => {\n    if (data.success) {\n      // Пользователь нажал «Пригласить» \n      // ...\n  \n      // Этим выбранным пользователям \n      // не удалось отправить приглашения \n      console.log('Приглашения не отправлены', data.notSentIds);\n    }\n  })\n  .catch( (error) => {\n    console.log(error); // Ошибка \n  });\n    }"
 ];
 
 
