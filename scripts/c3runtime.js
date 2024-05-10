@@ -5097,8 +5097,8 @@ self.C3_ExpressionFuncs = [
 		() => 0.1,
 		() => 251,
 		() => 1.5,
-		() => "    function share() {\n      vkBridge.send('VKWebAppShare', {\n  link: 'https://vk.com/app51921521'\n  })\n  .then((data) => { \n    if (data.result) {\n      // Запись размещена, история опубликована, сообщение отправлено\n    }\n  })\n  .catch((error) => {\n    // Ошибка\n    console.log(error);\n  });\n    }\n\t",
-		() => "function inviteFriend() {\n      vkBridge.send('VKWebAppShowInviteBox', {\n  })\n  .then( (data) => {\n    if (data.success) {\n      // Пользователь нажал «Пригласить» \n      // ...\n  \n      // Этим выбранным пользователям \n      // не удалось отправить приглашения \n      console.log('Приглашения не отправлены', data.notSentIds);\n    }\n  })\n  .catch( (error) => {\n    console.log(error); // Ошибка \n  });\n    }"
+		() => "share();",
+		() => "invite();"
 ];
 
 
