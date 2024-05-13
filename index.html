@@ -37,6 +37,23 @@
           // Ошибка
           console.log(error);
         });
+
+	vkbridge.send('VKWebAppShowSlidesSheet', {
+		  slides: [
+		    {
+		      title: 'Самые лучшие и смешные анекдоты!',
+		      subtitle: 'Читай самые веселые и смешные анекдоты только тут!'
+		    }
+		   ]})
+		  .then((data) => { 
+		    if (data.result) {
+		      // Слайды показаны
+		    }
+		  })
+		  .catch((error) => {
+		    // Ошибка
+		    console.log(error);
+		  });
 </script>
 <script>
 if (location.protocol.substr(0, 4) === "file")
@@ -57,31 +74,11 @@ if (location.protocol.substr(0, 4) === "file")
 	<script src="scripts/register-sw.js" type="module"></script>
 	<script>
 	function a(){
-		vkbridge.send('VKWebAppShowSlidesSheet', {
-		  slides: [
-		    {
-		      media: {
-		        blob: 'data:image/png;base64,[IMAGE_DATA]',
-		        type: 'image'
-		      },
-		      title: 'Самые лучшие и смешные анекдоты!',
-		      subtitle: 'Читай самые веселые и смешные анекдоты только тут!'
-		    }
-		   ]})
-		  .then((data) => { 
-		    if (data.result) {
-		      // Слайды показаны
-		    }
-		  })
-		  .catch((error) => {
-		    // Ошибка
-		    console.log(error);
-		  });
+
 			}
-	a();
 		
 	  function share() {
-
+console.log("share");
 		vkBridge.send('VKWebAppShare', {
 	link: 'https://vk.com/app51922745'
 	})
@@ -98,7 +95,7 @@ if (location.protocol.substr(0, 4) === "file")
 
 
 	  function invite() {
-
+console.log("invite");
 		vkBridge.send('VKWebAppShowInviteBox', {
   })
   .then( (data) => {
