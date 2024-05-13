@@ -6,11 +6,6 @@ const scriptsInEvents = {
 	async списоксобытий1_Event1_Act1(runtime, localVars)
 	{
 		
-	},
-
-	async списоксобытий1_Event10_Act1(runtime, localVars)
-	{
-		
 	}
 
 };
