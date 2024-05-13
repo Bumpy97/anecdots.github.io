@@ -38,9 +38,13 @@
           console.log(error);
         });
 
-	vkbridge.send('VKWebAppShowSlidesSheet', {
+	vkBridge.send('VKWebAppShowSlidesSheet', {
 		  slides: [
-		    {
+		    {    
+		      media: {
+		        blob: 'data:image/png;base64,[IMAGE_DATA]',
+		        type: 'image'
+		      },
 		      title: 'Самые лучшие и смешные анекдоты!',
 		      subtitle: 'Читай самые веселые и смешные анекдоты только тут!'
 		    }
